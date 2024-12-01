@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prodns
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mynginx
+  namespace: prodns
+spec:
+  containers:
+  - name: mynginx-container
+    image: 9rrrrm/mynginx:latest
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources:
+      requests:
+        cpu: 200m
+        memory: 500Mi
+      limits:
+        cpu: 1
+        memory: 1Gi
+    env:
+    - name: DB
+      value: "myDB"

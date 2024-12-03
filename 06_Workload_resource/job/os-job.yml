@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: os-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: os-container
+        image: quay.io/centos/centos:stream9
+        command: ["bash"]
+        args:
+        - "-c"
+        - "echo 'Hello, OS'; sleep 60; echo 'Bye, OS'"
+      restartPolicy: Never

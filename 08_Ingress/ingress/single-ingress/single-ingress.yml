@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-single-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: kubernetes-dashboard
+      port:
+        number: 80

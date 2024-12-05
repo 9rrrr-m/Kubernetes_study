@@ -1,0 +1,113 @@
+---
+# namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: testns
+
+---
+# ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homepay-ingress
+  namespace: testns
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: home-service
+            port:
+              number: 80
+      - path: /pay
+        pathType: Prefix
+        backend:
+          service:
+            name: pay-service
+            port:
+              number: 8080
+
+---
+# home
+# home - deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-deploy
+  namespace: testns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: home
+  template:
+    metadata:
+      name: home-pod
+      labels:
+        name: home
+    spec:
+      containers:
+      - name: home-container
+        image: httpd
+        ports:
+        - containerPort: 80
+
+---
+# home - service
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-service
+  namespace: testns
+spec:
+  type: ClusterIP
+  selector:
+    name: home
+  ports:
+  - port: 80
+    targetPort: 80
+
+---
+# pay - deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-deploy
+  namespace: testns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pay
+  template:
+    metadata:
+      name: pay-pod
+      labels:
+        app: pay
+    spec:
+      containers:
+      - name: pay-container
+        image: whatwant/node-web:2.0
+        ports:
+        - containerPort: 8080
+
+---
+# pay - service
+apiVersion: v1
+kind: Service
+metadata:
+  name: pay-service
+  namespace: testns
+spec:
+  type: ClusterIP
+  # clusterIP: 10.100.10.10
+  selector:
+    app: pay
+  ports:
+  - port: 80
+    targetPort: 8080

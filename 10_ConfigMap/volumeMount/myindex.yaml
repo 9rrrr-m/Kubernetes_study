@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  index.html: |
+    <pre>
+               .-"``"-.
+              /______; \
+             {_______}\|
+             (/ a a \)(_)
+             (.-.).-.)
+      _ooo__(    ^    )_____
+     /       '-.___.-'      \
+    | Merry Christmas!       |
+     \__________________ooo_/
+             |_  |  _|  jgs
+             \___|___/
+             {___|___}
+              |_ | _|
+              /-'Y'-\
+             (__/ \__)
+    </pre>
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-12-07T07:54:36Z"
+  name: myindex
+  namespace: default
+  resourceVersion: "298515"
+  uid: 458ba8e3-966b-4496-816f-68d4c1f7e44d

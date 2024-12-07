@@ -1,0 +1,24 @@
+apiVersion: v1
+data:
+  INTERVAL: "10"
+  OPTION: boy
+  nginx.conf: |
+    server {
+        listen       80 ;
+        server_name  www.example.com;
+
+        gzip on;
+        gzip_types text/plain application/xml;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html index.hml;
+        }
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-12-07T05:36:01Z"
+  name: test-config
+  namespace: default
+  resourceVersion: "292807"
+  uid: aa565780-264b-4fe3-8239-8f45c098da9d

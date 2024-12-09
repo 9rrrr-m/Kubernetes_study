@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tenserflow-gpu
+spec:
+  containers:
+  - name: tensorflow
+    image: tensorflow/tensorflow:nightly-jupyter
+    ports:
+    - containerPort: 8888
+  nodeSelector:
+    gpu: "true"
